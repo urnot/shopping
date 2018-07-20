@@ -1,13 +1,84 @@
 package com.tutu.shopping.controller;
 
 import com.tutu.shopping.service.MessageService;
+import com.tutu.shopping.util.IpUtil;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-@RestController
+@Controller
+@RequestMapping(value = "/board")
 public class MessageController {
-    @Autowired
-    MessageService messageService;
+	@Autowired
+	MessageService messageService;
 
+	@GetMapping(value = "/message")
+	public String sayHello() {
+		return "test";
+	}
+
+	/**
+	 * 跳转到留言板首页
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "/index")
+	public String toBoard() {
+		return "board";
+	}
+
+	/**
+	 * 保存留言的方法 json ajax
+	 * 
+	 * @param name
+	 * @param content
+	 * @return
+	 */
+	@PostMapping(value = "/save")
+	@ResponseBody
+	public String leaveMessage(@RequestParam("name") String name, @RequestParam("content") String content,
+			HttpServletRequest request) {
+		String remoteIp=IpUtil.getIpAddr(request);
+		System.out.println(remoteIp);
+		return name + content;
+	}
+
+	/**
+	 * 跳转到全部留言页面
+	 * 
+	 * @return
+	 */
+	@GetMapping(value = "/list")
+	public String toList() {
+		return "msglist";
+
+	}
+
+	/**
+	 * 跳转到全部留言页面
+	 * 
+	 * @return
+	 */
+	@GetMapping(value = "/query")
+	@ResponseBody
+	public String queryList() {
+		return "aaaaaaaa";
+
+	}
+	@PostMapping(value = "/check")
+	@ResponseBody
+	public boolean check(@PathVariable("name") String name) {
+		System.out.println(name);
+		return false;
+	}
 
 }

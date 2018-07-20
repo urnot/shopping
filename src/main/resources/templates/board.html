@@ -1,0 +1,96 @@
+
+<!doctype html>
+<html>
+<head>
+<title>留言页面</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords"
+	content="Marvelous Contact Form Widget Responsive, Login form web template,Flat Pricing tables,Flat Drop downs  Sign up Web Templates, Flat Web Templates, Login signup Responsive web template, Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
+<script type="application/x-javascript">
+	
+	
+	
+	
+	
+	
+	
+	
+	 addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } 
+
+
+
+
+
+
+
+
+</script>
+<script
+	src="http://static.runoob.com/assets/jquery-validation-1.14.0/lib/jquery.js"></script>
+<script
+	src="http://static.runoob.com/assets/jquery-validation-1.14.0/dist/jquery.validate.min.js"></script>
+<script type="text/javascript">
+	$().ready(function() {
+		$("#name").validate(
+				remote: {
+				    url: "/board/check",     //后台处理程序
+				    type: "post",               //数据发送方式
+				    dataType: "json",           //接受数据格式   
+				    data: {                     //要传递的数据
+				        username: function() {
+				            return $("#name").val();
+				        }
+				    }
+				}		
+		);
+	});
+</script>
+<!-- font files -->
+<link href='http://fonts.googleapis.com/css?family=Noto+Sans:400,700'
+	rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Nunito:400,700,300'
+	rel='stylesheet' type='text/css'>
+<!-- /font files -->
+<!-- css files -->
+<link href="../css/styleb.css" rel='stylesheet' type='text/css'
+	media="all" />
+<!-- /css files -->
+</head>
+<body>
+	<h1>Best Wishes</h1>
+	<div class="content-w3ls">
+		<form action="/board/save" method="post" class="form-agileits"
+			id="msgform">
+			<fieldset>
+
+				<div class="form-w3ls">
+					<h2>写点什么吧</h2>
+					<button type="submit" class="sign-in" value="Sign In">
+						<img src="../images/mail2.png" alt="无法显示">
+					</button>
+					<div class="clear"></div>
+				</div>
+				<input type="text" id="name" name="name" placeholder="名字会以匿名形式显示"
+					minlength="2" maxlength="15" required > 
+				<input type="email"
+					name="email" placeholder="联系方式选填" maxlength="25">
+				<textarea type="message" name="content" placeholder="留言内容" required
+					minlength="2" maxlength="200" 	></textarea>
+				<!-- 	<div class="myattend">
+			<select name="attend">
+				<option value="yes" selected>参加</option>
+				<option value="no" >无法参加</option> //预选设置
+				<option value="notsure">不确定</option>
+				<option value="justlook">打酱油看看</option>
+			</select> 
+			</div> -->
+				<input type="submit" class="sign-in" value="Submit">
+			</fieldset>
+
+		</form>
+	</div>
+	<p class="copyright">© 2018 Shen's Studio. All Rights Reserved |
+		Design by Shen.</p>
+</body>
+</html>
