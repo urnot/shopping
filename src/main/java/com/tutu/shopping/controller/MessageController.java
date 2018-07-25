@@ -1,5 +1,7 @@
 package com.tutu.shopping.controller;
 
+import com.tutu.shopping.dao.MessageRepository;
+import com.tutu.shopping.entity.Message;
 import com.tutu.shopping.service.MessageService;
 import com.tutu.shopping.util.IpUtil;
 
@@ -15,11 +17,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @Controller
 @RequestMapping(value = "/board")
 public class MessageController {
 	@Autowired
-	MessageService messageService;
+	MessageRepository messageRepository;
 
 	@GetMapping(value = "/message")
 	public String sayHello() {
@@ -45,11 +49,15 @@ public class MessageController {
 	 */
 	@PostMapping(value = "/save")
 	@ResponseBody
-	public String leaveMessage(@RequestParam("name") String name, @RequestParam("content") String content,
+	public Message leaveMessage(@RequestParam("name") String name, @RequestParam("content") String content,
 			HttpServletRequest request) {
 		String remoteIp=IpUtil.getIpAddr(request);
-		System.out.println(remoteIp);
-		return name + content;
+		Message m = new Message();
+		m.setRemoteUrl(remoteIp);
+		m.setName(name);
+		m.setContent(content);
+		//System.out.println(remoteIp);
+		return messageRepository.save(m);
 	}
 
 	/**
@@ -64,14 +72,14 @@ public class MessageController {
 	}
 
 	/**
-	 * 跳转到全部留言页面
+	 * query全部留言页面
 	 * 
 	 * @return
 	 */
 	@GetMapping(value = "/query")
 	@ResponseBody
-	public String queryList() {
-		return "aaaaaaaa";
+	public List<Message> queryList() {
+		return messageRepository.findAll();
 
 	}
 	@PostMapping(value = "/check")

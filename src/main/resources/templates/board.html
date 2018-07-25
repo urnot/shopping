@@ -32,18 +32,18 @@
 	src="http://static.runoob.com/assets/jquery-validation-1.14.0/dist/jquery.validate.min.js"></script>
 <script type="text/javascript">
 	$().ready(function() {
-		$("#name").validate(
-				remote: {
-				    url: "/board/check",     //后台处理程序
-				    type: "post",               //数据发送方式
-				    dataType: "json",           //接受数据格式   
-				    data: {                     //要传递的数据
-				        username: function() {
-				            return $("#name").val();
-				        }
-				    }
-				}		
-		);
+//		$("#name").validate(
+//				remote: {
+//				    url: "/board/check",     //后台处理程序
+//				    type: "post",               //数据发送方式
+//				    dataType: "json",           //接受数据格式
+//				    data: {                     //要传递的数据
+//				        username: function() {
+//				            return $("#name").val();
+//				        }
+//				    }
+//				}
+//		);
 	});
 </script>
 <!-- font files -->
@@ -60,7 +60,7 @@
 <body>
 	<h1>Best Wishes</h1>
 	<div class="content-w3ls">
-		<form action="/board/save" method="post" class="form-agileits"
+		<form action="/wedding/board/save" method="post" class="form-agileits"
 			id="msgform">
 			<fieldset>
 
