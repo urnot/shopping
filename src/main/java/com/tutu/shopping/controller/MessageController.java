@@ -7,6 +7,7 @@ import com.tutu.shopping.util.AddressUtils;
 import com.tutu.shopping.util.IpUtil;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,6 +25,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @Controller
 @RequestMapping(value = "/board")
@@ -64,14 +66,21 @@ public class MessageController {
 		m.setPublishTime(new Date());
 		m.setContent(content);
 		String city = "";
-		try {
-			city = AddressUtils.getAddresses(remoteIp, "utf-8");
-		} catch (UnsupportedEncodingException e) {
-			city = "未知地区";
-			System.out.println(e.getMessage());
+		if (remoteIp.equals("0:0:0:0:0:0:0:1") || remoteIp.equals("127.0.0.11") || remoteIp.equals("localhost")) {
+			city = "本机测试";
+		} else {
+
+			try {
+				city = AddressUtils.getAddresses(remoteIp, "utf-8");
+			} catch (UnsupportedEncodingException e) {
+				city = "未知地区";
+				System.out.println(e.getMessage());
+			}
 		}
 
 		m.setCity(city);
+		System.out.println(m);
+		messageRepository.save(m);
 		// System.out.println(remoteIp);
 		return "ok";
 	}
@@ -99,6 +108,27 @@ public class MessageController {
 		return "msglist";
 
 	}
+	
+	/**
+	 * getbyid
+	 * 
+	 * @return
+	 */
+	@GetMapping(value = "/get/{id}")
+	@Transactional
+    @ResponseBody
+
+	public Object queryById(@PathVariable("id") Integer id) {
+		return messageRepository.findById(id);
+
+	}
+	@GetMapping("/delete/{id}")
+    @ResponseBody
+    @Transactional
+    public String delete(@PathVariable("id")Integer id){
+		messageRepository.deleteById(id);
+        return "delete successfully";
+    }
 
 	@PostMapping(value = "/check")
 	@ResponseBody

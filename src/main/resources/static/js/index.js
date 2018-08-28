@@ -18,10 +18,10 @@ $(document).ready(
 							async : false,
 							success : function(msg) {
 
-								alert("success");
+								window.location.href =getPath() + "/index";
 							},
 							error : function() {
-								alert( "请求错误，请旺旺联系店主");
+								alert( "请求错误");
 							}
 						});
 

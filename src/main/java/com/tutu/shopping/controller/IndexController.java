@@ -10,5 +10,8 @@ public class IndexController {
 	public String toIndex() {
 		return "index";
 	}
-
+	@RequestMapping(value= {"/contact"})
+	public String toContact() {
+		return "contact";
+	}
 }
