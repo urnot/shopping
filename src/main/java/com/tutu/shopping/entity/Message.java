@@ -17,6 +17,7 @@ public class Message {
 	private int attend;
 	private String country;
 	private String city;
+	private boolean flag;
 
 	public Message() {
 	}
@@ -84,4 +85,14 @@ public class Message {
 	public void setCity(String city) {
 		this.city = city;
 	}
+
+	public boolean isFlag() {
+		return flag;
+	}
+
+	public void setFlag(boolean flag) {
+		this.flag = flag;
+	}
+
+
 }

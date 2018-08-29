@@ -103,12 +103,12 @@ public class MessageController {
 	 */
 	@GetMapping(value = "/query")
 	public String queryList(Model map) {
-
-		map.addAttribute("msgs", messageRepository.findAll());
+		List<Message> list = messageRepository.findAll();
+		map.addAttribute("msgs", list);
 		return "msglist";
 
 	}
-	
+
 	/**
 	 * getbyid
 	 * 
@@ -116,19 +116,26 @@ public class MessageController {
 	 */
 	@GetMapping(value = "/get/{id}")
 	@Transactional
-    @ResponseBody
+	@ResponseBody
 
-	public Object queryById(@PathVariable("id") Integer id) {
-		return messageRepository.findById(id);
+	public Message queryById(@PathVariable("id") Integer id) {
+		return messageRepository.findById(id).orElse(null);
 
 	}
-	@GetMapping("/delete/{id}")
-    @ResponseBody
-    @Transactional
-    public String delete(@PathVariable("id")Integer id){
-		messageRepository.deleteById(id);
-        return "delete successfully";
-    }
+
+	@PostMapping("/update/{id}")
+	@ResponseBody
+	@Transactional
+	public String update(@PathVariable("id") Integer id) {
+		Message m = messageRepository.findById(id).orElse(null);
+		if (m.isFlag()) {// true
+			m.setFlag(false);
+		} else {
+			m.setFlag(true);
+		}
+		messageRepository.saveAndFlush(m);
+		return "success";
+	}
 
 	@PostMapping(value = "/check")
 	@ResponseBody

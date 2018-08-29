@@ -2,6 +2,10 @@
 	xmlns:th="http://www.thymeleaf.org">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <head>
+
+<style type="text/css">
+</style>
+
 <!-- jQuery -->
 <!-- <script src="js/jquery.min.js"></script>
  -->
@@ -24,27 +28,25 @@
 			type : "GET",
 			dataType : "json",
 			success : function(msg) {
-				$(".modal-title").text("查看");
-				
-				$("#s1").text(msg.id);
+				$(".modal-title").text("留言内容");
+
+				$("#txt1").text(msg.content);
 			},
 			error : function(msg) {
 				alert("error");
 			}
 		});
 	}
-	function update(param) {
-
+	function update(param, flag) {
 		$.ajax({
-			url : "http://localhost:8080/wedding" + "/board/get/" + param,
-			type : "GET",
-			dataType : "json",
+			url : "http://localhost:8080/wedding" + "/board/update/" + param,
+			type : "POST",
+			dataType : "text",
 			success : function(msg) {
-				$(".modal-title").text("编辑");
-				$("#modal-body").html("<p>aaaaaaaaa</p>");
+				window.location.reload();
 			},
 			error : function(msg) {
-				alert("error");
+				alert("出现错误");
 			}
 		});
 	}
@@ -54,9 +56,7 @@
 	<div class="container-fluid">
 		<div class="row-fluid">
 			<div class="span12">
-				<!-- 按钮触发模态框 -->
-				<!-- <button class="btn btn-primary btn-lg" data-toggle="modal"
-					data-target="#myModal">开始演示模态框</button> -->
+				<h3 class="text-center">留言审核后台</h3>
 				<!-- 模态框（Modal） -->
 				<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
 					aria-labelledby="myModalLabel" aria-hidden="true">
@@ -68,12 +68,13 @@
 								<h4 class="modal-title" id="myModalLabel"></h4>
 							</div>
 							<div class="modal-body">
-							<span id="s1"></span>
+								<p id="txt1"></p>
 							</div>
 							<div class="modal-footer">
 								<button type="button" class="btn btn-default"
 									data-dismiss="modal">关闭</button>
-								<button type="button" class="btn btn-primary">提交更改</button>
+								<!-- 								<button type="button" class="btn btn-primary">提交更改</button>
+ -->
 							</div>
 						</div>
 						<!-- /.modal-content -->
@@ -103,7 +104,11 @@
 						<td th:text="${m.remoteUrl}"></td>
 						<td><button class="btn btn-primary btn-sm"
 								data-toggle="modal" data-target="#myModal" type="button"
-								th:onclick="'javascript:get('+${m.id}+')'">编辑</button></td>
+								th:onclick="'javascript:get('+${m.id}+')'">查看留言</button>|
+							<button
+								th:class="(${m.flag}==true) ?  'btn btn-success btn-sm' : 'btn btn-danger btn-sm'"
+								type="button"
+								th:onclick="'javascript:update('+${m.id}+','+${m.flag}+')'" th:text="(${m.flag}==true) ?  '展示中' : '隐藏中'"> </button></td>
 
 					</tr>
 
