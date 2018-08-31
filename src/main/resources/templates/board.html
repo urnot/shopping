@@ -18,7 +18,7 @@
 <!-- <script th:src="@{/js/index.js}"></script>  -->
 <script
 		src="http://lib.sinaapp.com/js/jquery/2.0.2/jquery-2.0.2.min.js"></script>
-<script src="../js/index.js"></script>
+<script th:src="@{/js/index.js}"></script>
 
 <!-- font files -->
 <link href='http://fonts.googleapis.com/css?family=Noto+Sans:400,700'
@@ -27,7 +27,7 @@
 	rel='stylesheet' type='text/css'>
 <!-- /font files -->
 <!-- css files -->
-<link href="../css/styleb.css" rel='stylesheet' type='text/css'
+<link th:href="@{/css/styleb.css}" rel='stylesheet' type='text/css'
 	media="all" />
 <!-- /css files -->
 </head>
@@ -60,8 +60,8 @@
 			</fieldset>
 
 		</form>
-		<button type="button" onclick="">返回主页</button>
-	</div>
+<!-- 		<button type="button" onclick="">返回主页</button>
+ -->	</div>
 	<p class="copyright">© 2018 Shen's Studio. All Rights Reserved |
 		Design by Shen.</p>
 </body>

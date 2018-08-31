@@ -1,13 +1,13 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta http-equiv="refresh" content="60">
-<link type="text/css" rel="stylesheet" href="../css/stylex.css" />
+<link type="text/css" rel="stylesheet" th:href="@{/css/stylex.css}" />
 <!--jQuery-->
-<script type="text/javascript" src="../js/jquery.min.js"></script>
+<script type="text/javascript" th:src="@{/js/jquery.min.js}"></script>
 <!--jQuery动画暂停插件-->
-<script type="text/javascript" src="../js/jquery.pause.min.js"></script>
+<script type="text/javascript" th:src="@{/js/jquery.pause.min.js}"></script>
 <!--滚动效果js-->
 <script type="text/javascript">
 	$(function() {
@@ -52,7 +52,7 @@
 		<ul>
 			<li th:each="m:${msgs}">
 				<div class="div_left">
-					<a href="http://www.htmleaf.com/"><img src="../images/head.jpg"
+					<a href="http://www.htmleaf.com/"><img th:src="@{/images/head.jpg}"
 						title="Jarvis_风"></a>
 				</div>
 				<div class="div_right">

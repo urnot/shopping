@@ -21,10 +21,18 @@
 <script
 	src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script type="text/javascript">
+function getPath() {
+
+	var pathName = document.location.pathname;
+	var index = pathName.substr(1).indexOf("/");
+	var result = pathName.substr(0, index + 1);
+	return result;
+
+}
 	function get(param) {
 
 		$.ajax({
-			url : "http://localhost:8080/wedding" + "/board/get/" + param,
+			url : getPath() + "/wedding/board/get/" + param,
 			type : "GET",
 			dataType : "json",
 			success : function(msg) {
@@ -39,7 +47,7 @@
 	}
 	function update(param, flag) {
 		$.ajax({
-			url : "http://localhost:8080/wedding" + "/board/update/" + param,
+			url :getPath()+ "/wedding" + "/board/update/" + param,
 			type : "POST",
 			dataType : "text",
 			success : function(msg) {
