@@ -1,5 +1,6 @@
 package com.tutu.shopping.controller;
 
+import com.sun.org.apache.regexp.internal.recompile;
 import com.tutu.shopping.dao.MessageRepository;
 import com.tutu.shopping.entity.Message;
 import com.tutu.shopping.service.MessageService;
@@ -60,19 +61,21 @@ public class MessageController {
 	public String leaveMessage(@RequestParam("name") String name, @RequestParam("content") String content,
 			HttpServletRequest request) {
 		String remoteIp = IpUtil.getIpAddr(request);
+
 		Message m = new Message();
 		m.setRemoteUrl(remoteIp);
 		m.setName(name);
 		m.setPublishTime(new Date());
 		m.setContent(content);
 		String city = "";
-		if (remoteIp.equals("0:0:0:0:0:0:0:1") || remoteIp.equals("127.0.0.11") || remoteIp.equals("localhost")) {
-			city = "本机测试";
+		if (remoteIp.equals("0:0:0:0:0:0:0:1") || remoteIp.equals("127.0.0.11") || remoteIp.equals("localhost")
+				|| remoteIp == null) {
+			city = "本机测试或空";
 		} else {
 
 			try {
 				city = AddressUtils.getAddresses(remoteIp, "utf-8");
-			} catch (UnsupportedEncodingException e) {
+			} catch (Exception e) {
 				city = "未知地区";
 				System.out.println(e.getMessage());
 			}

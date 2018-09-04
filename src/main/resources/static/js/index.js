@@ -17,6 +17,7 @@ $(document).ready(
 							dataType : "text",
 							async : false,
 							success : function(msg) {
+								alert("留言成功！返回首页！");
 
 								window.location.href =getPath() + "/index";
 							},

@@ -26,13 +26,14 @@ function getPath() {
 	var pathName = document.location.pathname;
 	var index = pathName.substr(1).indexOf("/");
 	var result = pathName.substr(0, index + 1);
+	console.log(result);
 	return result;
 
 }
 	function get(param) {
 
 		$.ajax({
-			url : getPath() + "/wedding/board/get/" + param,
+			url : getPath() + "/board/get/" + param,
 			type : "GET",
 			dataType : "json",
 			success : function(msg) {
@@ -41,20 +42,20 @@ function getPath() {
 				$("#txt1").text(msg.content);
 			},
 			error : function(msg) {
-				alert("error");
+				alert("请求出现错误");
 			}
 		});
 	}
 	function update(param, flag) {
 		$.ajax({
-			url :getPath()+ "/wedding" + "/board/update/" + param,
+			url :getPath() + "/board/update/" + param,
 			type : "POST",
 			dataType : "text",
 			success : function(msg) {
 				window.location.reload();
 			},
 			error : function(msg) {
-				alert("出现错误");
+				alert("请求出现错误");
 			}
 		});
 	}
@@ -97,8 +98,9 @@ function getPath() {
 						<th>昵称</th>
 						<th>国家</th>
 						<th>城市</th>
-						<th>留言时间</th>
 						<th>ip</th>
+						<th>留言时间</th>
+						<th>留言内容</th>
 						<th>操作</th>
 					</tr>
 				</thead>
@@ -108,11 +110,13 @@ function getPath() {
 						<td th:text="${m.name}"></td>
 						<td th:text="${m.country}"></td>
 						<td th:text="${m.city}"></td>
-						<td th:text="${m.publishTime}"></td>
 						<td th:text="${m.remoteUrl}"></td>
-						<td><button class="btn btn-primary btn-sm"
+						<td th:text="${m.publishTime}"></td>
+						<td th:text="${m.content}"></td>
+						
+						<td><!-- <button class="btn btn-primary btn-sm"
 								data-toggle="modal" data-target="#myModal" type="button"
-								th:onclick="'javascript:get('+${m.id}+')'">查看留言</button>|
+								th:onclick="'javascript:get('+${m.id}+')'">查看留言</button>| -->
 							<button
 								th:class="(${m.flag}==true) ?  'btn btn-success btn-sm' : 'btn btn-danger btn-sm'"
 								type="button"
